@@ -16,21 +16,13 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export function Toolbar({addNote, activeNote}) {
+export function Toolbar({addNote, notes, setNotes, activeNoteId}) {
     const classes = useStyles();
-    const [title, setTitle] = useState(activeNote.name)
-
-    const onSubmit = (e) => {
-        e.preventDefault()
-        createNewNote()
-    }
+    let actualItemIndex = 0
 
     const createNewNote = () => {
-        if (!title) {
-            setTitle('new note')
-        }
         const note = {
-            name: title,
+            name: 'new note',
             content: ''
         }
         addNote(note);
@@ -39,8 +31,13 @@ export function Toolbar({addNote, activeNote}) {
     return (
         <div className={classes.root}>
             <DeleteButton/>
-            <input type={'text'} placeholder={'title'} onChange={(e)=>{
-                activeNote.name = e.target.value
+            <input type={'text'} placeholder={'title'} onChange={(e) => {
+                const copy = notes.map(i => i);
+                actualItemIndex = copy.index((note) =>{
+                    return note.id === activeNoteId
+                });
+                copy[actualItemIndex] = {...copy[actualItemIndex], name: e.target.value};
+                setNotes(copy);
             }
             }
                    value={activeNote.name}

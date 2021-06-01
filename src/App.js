@@ -3,7 +3,7 @@ import {FileSystemNavigator} from './components/TreeView';
 import {Toolbar} from './components/Toolbar';
 import {useState} from "react";
 import Note from './components/Note'
-import nextId from "react-id-generator";
+import { v4 as uuidv4 } from 'uuid';
 
 function App() {
   const [notes, setNotes] = useState([
@@ -11,11 +11,6 @@ function App() {
       id:1,
       name: "first note",
       content: "gg boiz"
-    },
-    {
-      id: 2,
-      name: "second note",
-      content: "asdfasldfasjdlfkjas"
     }
   ])
 
@@ -32,13 +27,17 @@ function App() {
     setNotes([...notes, newNote])
   }
 
+  const changeActiveNote = (note)=>{
+    setActiveNote(note)
+  }
+
   return (
     <div className="parent">
     <div className="treeview">
       <FileSystemNavigator notes={notes} onNoteClick={onNoteClick}/>
     </div>
     <div className="toolbar">
-      <Toolbar addNote={addNote} activeNote={activeNote}/>
+      <Toolbar addNote={addNote} activeNoteId={activeNote} notes={notes} setNotes={setNotes}/>
     </div>
     <div className="note">
       <Note note={activeNote}/>
