@@ -2,7 +2,7 @@
   height: 100vh;
   display: grid;
   grid-template-columns: .3fr 1fr;
-  grid-template-rows: 10% 1fr 1fr;
+  grid-template-rows: .05fr 1fr 1fr;
   /* align-items: flex-end; */
   /* flex-flow: row; */
   /* flex-wrap: wrap; */
@@ -12,7 +12,7 @@
 .treeview{
   /* width: 200px;
   height: 200px; */
-  background: rgb(39, 61, 134);
+  background: whitesmoke;
   /* grid-row: 1/2; */
   /* flex: 1 1 300px; */
   /* align-self: center; */
@@ -21,16 +21,16 @@
 
 .toolbar{
   /* height: 200px; */
-  background: blueviolet;
+  background: antiquewhite;
   grid-column: 2/3;
   /* grid-row: 1/2; */
-  /* flex-shrink: 2; */
+  /* flex-shrink: 2;*/
   /* flex: 1 1 300px; */
 }
 .note{
   /* width: 200px;
   height: 200px; */
-  background:brown;
+  background:antiquewhite;
   grid-row: 2/4;
   /* flex: 1 1 300px; */
   /* grid-column: 1/3; */

@@ -16,10 +16,10 @@ function DeleteButton() {
         <Button
             variant="contained"
             color="secondary"
+            size="small"
             className={classes.button}
             startIcon={<DeleteIcon/>}
         >
-            Delete
         </Button>
     )
 }

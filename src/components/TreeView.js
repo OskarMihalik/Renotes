@@ -1,67 +1,35 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import TreeView from '@material-ui/lab/TreeView';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import {makeStyles} from '@material-ui/core/styles';
 import TreeItem from '@material-ui/lab/TreeItem';
+import {TreeView} from "@material-ui/lab";
 
-const useStyles = makeStyles({
-  root: {
-    height: 240,
-    flexGrow: 1,
-    maxWidth: 400,
-  },
-});
-
-let lastSelectedID = null
-
-let data = {
-  id: 'root',
-  name: 'Parent',
-  children: [
-    {
-      id: '1',
-      name: 'Child - 1',
+const useStyles = makeStyles((theme) => ({
+    root: {
+        height: 10,
+        flexGrow: 1,
+        maxWidth: 240,
+        paddingLeft: '1px',
     },
-    {
-      id: '3',
-      name: 'Child - 3',
-      children: [
-        {
-          id: '4',
-          name: 'Child - 4',
-        },
-      ],
+    button: {
+        // margin: theme.spacing(.1),
+        paddingBottom: '0px',
     },
-  ],
-};
+}));
 
-const selectedItem = (item, value)=>{
-  console.log(`selected ${item} ${value}`)
-  lastSelectedID = item
+export const FileSystemNavigator = ({notes, onNoteClick}) => {
+    const classes = useStyles();
+
+    return (
+        <TreeView
+            className={classes.root}
+        >
+            {notes.map((note) =>
+                (<div key={note.id}>
+                        <TreeItem nodeId={note.id} className={classes.button} size={"small"} label={note.name} onLabelClick={()=> onNoteClick(note.id)} />
+                    </div>
+                )
+            )}
+        </TreeView>
+    );
 }
 
-const deleteItem = (item, id) =>{
-  data = Array.isArray(data.children) ? data.children.map((node) => deleteItem(node)) : null
-}
-
-const renderTree = (nodes) => (
-    <TreeItem key={nodes.id} nodeId={nodes.id} label={nodes.name}>
-      {Array.isArray(nodes.children) ? nodes.children.map((node) => renderTree(node)) : null}
-    </TreeItem>
-);
-
-export const FileSystemNavigator =  () =>{
-  const classes = useStyles();
-
-  return (
-    <TreeView
-      className={classes.root}
-      defaultCollapseIcon={<ExpandMoreIcon />}
-      defaultExpandIcon={<ChevronRightIcon />}
-      onNodeSelect={deleteItem}
-    >
-      {renderTree(data)}
-    </TreeView>
-  );
-}

@@ -1,65 +1,61 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import {makeStyles} from '@material-ui/core/styles';
-import CloudUploadIcon from '@material-ui/icons/CloudUpload';
-import KeyboardVoiceIcon from '@material-ui/icons/KeyboardVoice';
-import SaveIcon from '@material-ui/icons/Save';
-import SendIcon from '@material-ui/icons/Send'
+import {useState} from "react";
 
 import DeleteButton from './MyButtons/DeleteButton'
 
 const useStyles = makeStyles((theme) => ({
+    root:{
+        display: "flex",
+        flexDirection: "row",
+        alignContent: "center"
+    },
     button: {
         margin: theme.spacing(1),
     },
 }));
 
-export function Toolbar() {
+export function Toolbar({addNote, activeNote}) {
     const classes = useStyles();
+    const [title, setTitle] = useState(activeNote.name)
+
+    const onSubmit = (e) => {
+        e.preventDefault()
+        createNewNote()
+    }
+
+    const createNewNote = () => {
+        if (!title) {
+            setTitle('new note')
+        }
+        const note = {
+            name: title,
+            content: ''
+        }
+        addNote(note);
+    }
 
     return (
-        <div>
+        <div className={classes.root}>
             <DeleteButton/>
-            <Button
-                variant="contained"
-                color="primary"
-                className={classes.button}
-            >
-                Add
-            </Button>
-            <Button
-                variant="contained"
-                color="primary"
-                className={classes.button}
-                endIcon={<SendIcon/>}
-            >
-                Send
-            </Button>
-            <Button
-                variant="contained"
-                color="default"
-                className={classes.button}
-                startIcon={<CloudUploadIcon/>}
-            >
-                Upload
-            </Button>
-            <Button
-                variant="contained"
-                disabled
-                color="secondary"
-                className={classes.button}
-                startIcon={<KeyboardVoiceIcon/>}
-            >
-                Talk
-            </Button>
+            <input type={'text'} placeholder={'title'} onChange={(e)=>{
+                activeNote.name = e.target.value
+            }
+            }
+                   value={activeNote.name}
+            />
             <Button
                 variant="contained"
                 color="primary"
                 size="small"
                 className={classes.button}
-                startIcon={<SaveIcon/>}
+                onClick={() => {
+                    createNewNote()
+                }
+                }
             >
-                Save
+                Add new
             </Button>
         </div>
     );
