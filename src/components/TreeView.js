@@ -25,7 +25,7 @@ export const FileSystemNavigator = ({notes, onNoteClick}) => {
         >
             {notes.map((note) =>
                 (<div key={note.id}>
-                        <TreeItem nodeId={note.id} className={classes.button} size={"small"} label={note.name} onLabelClick={()=> onNoteClick(note.id)} />
+                        <TreeItem nodeId={note.id} className={classes.button} size={"small"} label={note.name ? note.name : '...'} onLabelClick={()=> onNoteClick(note.id)} />
                     </div>
                 )
             )}

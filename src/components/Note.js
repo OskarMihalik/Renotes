@@ -2,14 +2,17 @@ import React from 'react';
 import SimpleMDE from "react-simplemde-editor";
 import "easymde/dist/easymde.min.css";
 
-const Note = ({note}) => {
+const Note = ({noteIndex, notes, setNotes}) => {
     const onChange = (value) => {
-        note.content = value;
+        let copy = [...notes]
+        copy[noteIndex].content = value
+        // notes[noteIndex].content = value;
+        setNotes(copy)
     };
 
     return (
       <>
-          <SimpleMDE value={note.content} onChange={onChange}/>
+          <SimpleMDE value={notes[noteIndex].content} onChange={onChange}/>
       </>
     )
 }

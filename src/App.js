@@ -14,11 +14,12 @@ function App() {
     }
   ])
 
-  const [activeNote, setActiveNote] = useState(notes[0])
+  const [activeNoteId, setActiveNoteId] = useState('9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d')
+  const [activeNoteIndex, setActiveNoteIndex] = useState(0)
 
   const onNoteClick = (id)=>{
-    console.log(notes.find((note) => note.id === id).content)
-    setActiveNote(notes.find((note) => note.id === id))
+    setActiveNoteId(id)
+    setActiveNoteIndex(notes.findIndex((note) => note.id === id))
   }
 
   const addNote = (note)=>{
@@ -27,17 +28,13 @@ function App() {
     setNotes([...notes, newNote])
   }
 
-  const changeActiveNote = (note)=>{
-    setActiveNote(note)
-  }
-
   return (
     <div className="parent">
     <div className="treeview">
       <FileSystemNavigator notes={notes} onNoteClick={onNoteClick}/>
     </div>
     <div className="toolbar">
-      <Toolbar addNote={addNote} activeNoteId={activeNote} notes={notes} setNotes={setNotes}/>
+      <Toolbar addNote={addNote} activeNoteIndex={activeNoteIndex} notes={notes} setNotes={setNotes}/>
     </div>
     <div className="note">
       <Note note={activeNote}/>

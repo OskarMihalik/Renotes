@@ -16,9 +16,8 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export function Toolbar({addNote, notes, setNotes, activeNoteId}) {
+export function Toolbar({addNote, notes, setNotes, activeNoteIndex}) {
     const classes = useStyles();
-    let actualItemIndex = 0
 
     const createNewNote = () => {
         const note = {
@@ -32,15 +31,12 @@ export function Toolbar({addNote, notes, setNotes, activeNoteId}) {
         <div className={classes.root}>
             <DeleteButton/>
             <input type={'text'} placeholder={'title'} onChange={(e) => {
-                const copy = notes.map(i => i);
-                actualItemIndex = copy.index((note) =>{
-                    return note.id === activeNoteId
-                });
-                copy[actualItemIndex] = {...copy[actualItemIndex], name: e.target.value};
+                const copy = notes.map(i => i)
+                copy[activeNoteIndex] = {...copy[activeNoteIndex], name: e.target.value};
                 setNotes(copy);
             }
             }
-                   value={activeNote.name}
+                   value={notes[activeNoteIndex].name}
             />
             <Button
                 variant="contained"
