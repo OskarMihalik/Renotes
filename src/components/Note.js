@@ -12,7 +12,7 @@ const Note = ({noteIndex, notes, setNotes}) => {
 
     return (
       <>
-          <SimpleMDE value={notes[noteIndex].content} onChange={onChange}/>
+          <SimpleMDE value={noteIndex > 0 ? notes[noteIndex].content : ''} onChange={onChange}/>
       </>
     )
 }

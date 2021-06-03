@@ -1,7 +1,6 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import {makeStyles} from '@material-ui/core/styles';
-import {useState} from "react";
 
 import DeleteButton from './MyButtons/DeleteButton'
 
@@ -16,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export function Toolbar({addNote, notes, setNotes, activeNoteIndex}) {
+export function Toolbar({addNote, notes, setNotes, activeNoteIndex, setActiveNoteIndex}) {
     const classes = useStyles();
 
     const createNewNote = () => {
@@ -26,17 +25,25 @@ export function Toolbar({addNote, notes, setNotes, activeNoteIndex}) {
         }
         addNote(note);
     }
+    const deleteNote = ()=>{
+        if (notes.length > 0){
+            let copy = [...notes]
+            copy.splice(activeNoteIndex, 1)
+            activeNoteIndex > 0 ? setActiveNoteIndex(activeNoteIndex-1) : setActiveNoteIndex(0)
+            setNotes(copy)
+        }
+    }
 
     return (
         <div className={classes.root}>
-            <DeleteButton/>
+            <DeleteButton onClick={deleteNote}/>
             <input type={'text'} placeholder={'title'} onChange={(e) => {
                 const copy = notes.map(i => i)
                 copy[activeNoteIndex] = {...copy[activeNoteIndex], name: e.target.value};
                 setNotes(copy);
             }
             }
-                   value={notes[activeNoteIndex].name}
+                   value={activeNoteIndex > 0 ? notes[activeNoteIndex].name : ''}
             />
             <Button
                 variant="contained"

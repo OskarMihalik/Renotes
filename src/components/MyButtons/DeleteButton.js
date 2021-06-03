@@ -9,7 +9,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function DeleteButton() {
+function DeleteButton({onClick}) {
     const classes = useStyles();
 
     return (
@@ -19,6 +19,9 @@ function DeleteButton() {
             size="small"
             className={classes.button}
             startIcon={<DeleteIcon/>}
+            onClick={()=>{
+                onClick()
+            }}
         >
         </Button>
     )
