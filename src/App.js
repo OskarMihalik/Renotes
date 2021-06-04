@@ -5,7 +5,6 @@ import {useState} from "react";
 import Note from './components/Note'
 import {v4 as uuidv4} from 'uuid';
 
-
 function App() {
     const [notes, setNotes] = useState([
         {
@@ -17,7 +16,6 @@ function App() {
 
     const [activeNoteId, setActiveNoteId] = useState('9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d')
     const [activeNoteIndex, setActiveNoteIndex] = useState(0)
-    const [deletePopupActive, setDeletePopupActive] = useState(false)
 
     const onNoteClick = (id) => {
         setActiveNoteId(id)
@@ -29,6 +27,10 @@ function App() {
         const id = uuidv4()
         const newNote = {id, ...note}
         setNotes([...notes, newNote])
+    }
+
+    const deleteNote = (index) =>{
+        //move deleting notes here
     }
 
     return (

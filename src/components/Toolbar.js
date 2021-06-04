@@ -1,8 +1,8 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Button from '@material-ui/core/Button';
 import {makeStyles} from '@material-ui/core/styles';
-
 import DeleteButton from './MyButtons/DeleteButton'
+import DeletePopup from "./DeletePopup";
 
 const useStyles = makeStyles((theme) => ({
     root:{
@@ -17,6 +17,14 @@ const useStyles = makeStyles((theme) => ({
 
 export function Toolbar({addNote, notes, setNotes, activeNoteIndex, setActiveNoteIndex}) {
     const classes = useStyles();
+
+    const [isDeletePopupOpen, setDeletePopupOpen] = useState(false)
+
+    const deletePopupOpenClose = ()=>{
+        if(notes.length > 0){
+            setDeletePopupOpen(!isDeletePopupOpen)
+        }
+    }
 
     const createNewNote = () => {
         const note = {
@@ -36,7 +44,7 @@ export function Toolbar({addNote, notes, setNotes, activeNoteIndex, setActiveNot
 
     return (
         <div className={classes.root}>
-            <DeleteButton onClick={deleteNote}/>
+            <DeleteButton onClick={deletePopupOpenClose}/>
             <input type={'text'} placeholder={'title'} onChange={(e) => {
                 const copy = notes.map(i => i)
                 copy[activeNoteIndex] = {...copy[activeNoteIndex], name: e.target.value};
@@ -57,6 +65,7 @@ export function Toolbar({addNote, notes, setNotes, activeNoteIndex, setActiveNot
             >
                 Add new
             </Button>
+            <DeletePopup isDeletePopupOpen={isDeletePopupOpen} deletePopupOpenClose={deletePopupOpenClose} deleteNote={deleteNote}/>
         </div>
     );
 }
