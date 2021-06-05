@@ -29,21 +29,47 @@ function App() {
         setNotes([...notes, newNote])
     }
 
-    const deleteNote = (index) =>{
+    const deleteNote = () =>{
         //move deleting notes here
+        if (notes.length > 0){
+            let copy = [...notes]
+            copy.splice(activeNoteIndex, 1)
+            setActiveNoteIndex(notes.length > 2 ? activeNoteIndex-1 : -1)
+            setNotes(copy)
+            console.log(notes)
+            console.log(activeNoteIndex)
+        }
+    }
+
+    const onNoteTitleChange = (e)=>{
+        const copy = notes.map(i => i)
+        copy[activeNoteIndex] = {...copy[activeNoteIndex], name: e.target.value};
+        setNotes(copy);
+    }
+
+    const onNoteContentChange = (value) =>{
+        if (activeNoteIndex >= 0) {
+            let copy = [...notes]
+            copy[activeNoteIndex].content = value
+            setNotes(copy)
+        }
+    }
+
+    const returnActiveNote = ()=>{
+        return activeNoteIndex >= 0 ? notes[activeNoteIndex] : null
     }
 
     return (
         <div className="parent">
             <div className="treeview">
-                <FileSystemNavigator notes={notes} onNoteClick={onNoteClick}/>
+                <FileSystemNavigator notes={notes} onNoteClick={onNoteClick} noteIndex={activeNoteIndex}/>
             </div>
             <div className="toolbar">
-                <Toolbar addNote={addNote} activeNoteIndex={activeNoteIndex} notes={notes} setNotes={setNotes}
-                         setActiveNoteIndex={setActiveNoteIndex}/>
+                <Toolbar addNote={addNote} returnActiveNote={returnActiveNote} deleteNote={deleteNote}
+                         onNoteTitleChange={onNoteTitleChange}/>
             </div>
             <div className="note">
-                <Note noteIndex={activeNoteIndex} notes={notes} setNotes={setNotes}/>
+                <Note returnActiveNote={returnActiveNote} onNoteContentChange={onNoteContentChange}/>
             </div>
         </div>
     );

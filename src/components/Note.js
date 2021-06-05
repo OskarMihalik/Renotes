@@ -1,19 +1,22 @@
-import React from 'react';
+import {useMemo} from 'react';
 import SimpleMDE from "react-simplemde-editor";
 import "easymde/dist/easymde.min.css";
 
-const Note = ({noteIndex, notes, setNotes}) => {
-    const onChange = (value) => {
-        let copy = [...notes]
-        copy[noteIndex].content = value
-        // notes[noteIndex].content = value;
-        setNotes(copy)
-    };
+const Note = ({returnActiveNote, onNoteContentChange}) => {
+
+    const autofocusNoSpellcheckerOptions = useMemo(() => {
+        return {
+            autofocus: true,
+            spellChecker: false,
+        }
+    }, []);
 
     return (
-      <>
-          <SimpleMDE value={noteIndex > 0 ? notes[noteIndex].content : ''} onChange={onChange}/>
-      </>
+        <>
+            <SimpleMDE options={autofocusNoSpellcheckerOptions}
+                       value={returnActiveNote() ? returnActiveNote().content : ''}
+                       onChange={onNoteContentChange}/>
+        </>
     )
 }
 

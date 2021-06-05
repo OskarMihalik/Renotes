@@ -15,13 +15,13 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export function Toolbar({addNote, notes, setNotes, activeNoteIndex, setActiveNoteIndex}) {
+export function Toolbar({addNote, returnActiveNote, deleteNote, onNoteTitleChange}) {
     const classes = useStyles();
 
     const [isDeletePopupOpen, setDeletePopupOpen] = useState(false)
 
     const deletePopupOpenClose = ()=>{
-        if(notes.length > 0){
+        if(returnActiveNote()){
             setDeletePopupOpen(!isDeletePopupOpen)
         }
     }
@@ -33,25 +33,12 @@ export function Toolbar({addNote, notes, setNotes, activeNoteIndex, setActiveNot
         }
         addNote(note);
     }
-    const deleteNote = ()=>{
-        if (notes.length > 0){
-            let copy = [...notes]
-            copy.splice(activeNoteIndex, 1)
-            activeNoteIndex > 0 ? setActiveNoteIndex(activeNoteIndex-1) : setActiveNoteIndex(0)
-            setNotes(copy)
-        }
-    }
 
     return (
         <div className={classes.root}>
             <DeleteButton onClick={deletePopupOpenClose}/>
-            <input type={'text'} placeholder={'title'} onChange={(e) => {
-                const copy = notes.map(i => i)
-                copy[activeNoteIndex] = {...copy[activeNoteIndex], name: e.target.value};
-                setNotes(copy);
-            }
-            }
-                   value={activeNoteIndex > 0 ? notes[activeNoteIndex].name : ''}
+            <input type={'text'} placeholder={'title'} onChange={onNoteTitleChange}
+                   value={returnActiveNote() ? returnActiveNote().name : ''}
             />
             <Button
                 variant="contained"

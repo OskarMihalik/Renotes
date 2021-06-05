@@ -35,7 +35,7 @@ const DeletePopup = ({isDeletePopupOpen, deletePopupOpenClose, deleteNote}) => {
                 <span className={classes.text}> Are you sure you want to delete your note? </span>
                 <Button className={classes.buttonYes}
                         variant="contained"
-                        color="primary"
+                        color="secondary"
                         size="small"
                         onClick={()=>{
                             deleteNote()
