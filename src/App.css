@@ -1,17 +1,26 @@
 .parent{
   height: 100vh;
   display: grid;
-  grid-template-columns: .3fr 1fr;
+  grid-template-columns: 0.02fr .3fr 1fr;
   grid-template-rows: .05fr 1fr 1fr;
   /* align-items: flex-end; */
   /* flex-flow: row; */
   /* flex-wrap: wrap; */
+  grid-template-areas:
+          'sidebar treeview toolbar'
+          'sidebar treeview note'
+          'sidebar treeview note';
+}
 
+.parent.hidden{
+  grid-template-columns: 0 1fr;
 }
 
 .treeview{
   background: whitesmoke;
-  grid-row: 1/4;
+  grid-area: treeview;
+  /*grid-row: 1/4;*/
+  /*grid-column: 2/3;*/
   /*visibility: hidden;*/
 }
 
@@ -19,10 +28,16 @@
   visibility: hidden;
 }
 
+.sidebar{
+  grid-area: sidebar;
+  background: aquamarine;
+}
+
 .toolbar{
   /* height: 200px; */
   background: antiquewhite;
-  grid-column: 2/3;
+  grid-area: toolbar;
+  /*grid-column: 2/4;*/
   /* grid-row: 1/2; */
   /* flex-shrink: 2;*/
   /* flex: 1 1 300px; */
@@ -31,7 +46,9 @@
   /* width: 200px;
   height: 200px; */
   background:antiquewhite;
-  grid-row: 2/4;
+  grid-area: note;
+  /*grid-row: 2/4;*/
+  /*grid-column: 2/4;*/
   /* flex: 1 1 300px; */
   /* grid-column: 1/3; */
 } 

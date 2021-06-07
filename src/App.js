@@ -4,6 +4,9 @@ import {Toolbar} from './components/Toolbar';
 import {useState} from "react";
 import Note from './components/Note'
 import {v4 as uuidv4} from 'uuid';
+import Sidebar from "./components/Sidebar";
+
+//template rsc
 
 function App() {
     const [notes, setNotes] = useState([
@@ -61,6 +64,9 @@ function App() {
 
     return (
         <div className="parent">
+            <div className={"sidebar"}>
+                <Sidebar/>
+            </div>
             <div className="treeview">
                 <FileSystemNavigator notes={notes} onNoteClick={onNoteClick} noteIndex={activeNoteIndex}/>
             </div>
