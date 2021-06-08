@@ -13,7 +13,7 @@ function App() {
         {
             id: '9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d',
             name: "first note",
-            date: '',
+            date: 'Tue Jun 08 2021 15:15:42 GMT+0200 (Central European Summer Time)',
             content: "gg boiz"
         }
     ])
@@ -83,7 +83,7 @@ function App() {
         <div className={notesHidden ? "parent hidden" : "parent"}>
             <div className={"sidebar"}>
                 <Sidebar changeNotesHidden={changeNotesHidden} addNote={addNote} deleteNote={deleteNote}
-                         returnActiveNote={returnActiveNote}/>
+                         returnActiveNote={returnActiveNote} notes={notes}/>
             </div>
             <div className={notesHidden ? "treeview hidden" : "treeview"}>
                 <FileSystemNavigator notes={notes} onNoteClick={onNoteClick} noteIndex={activeNoteIndex}/>

@@ -3,6 +3,7 @@ import {makeStyles} from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import AddIcon from "@material-ui/icons/Add";
 import DeleteIcon from "@material-ui/icons/Delete";
+import SettingsIcon from '@material-ui/icons/Settings';
 import DeletePopup from "./DeletePopup";
 
 const useStyles = makeStyles(() => ({
@@ -22,7 +23,7 @@ const useStyles = makeStyles(() => ({
 
 
 
-const Sidebar = ({changeNotesHidden, addNote, deleteNote, returnActiveNote}) => {
+const Sidebar = ({changeNotesHidden, addNote, deleteNote, returnActiveNote, notes}) => {
     const classes = useStyles();
 
     const createNewNote = () => {
@@ -41,12 +42,20 @@ const Sidebar = ({changeNotesHidden, addNote, deleteNote, returnActiveNote}) => 
         }
     }
 
+    const exportNotes = () => {
+        let a = document.createElement('a')
+        let file = new Blob([JSON.stringify(notes)], {type: 'text/plain'})
+        a.href = URL.createObjectURL(file);
+        a.download = 'notes';
+        a.click();
+    }
+
     return (
         <>
             <DeletePopup isDeletePopupOpen={isDeletePopupOpen} deletePopupOpenClose={deletePopupOpenClose} deleteNote={deleteNote}/>
             <div className={classes.root}>
                 <Button onClick={changeNotesHidden} className={classes.element}>Notes</Button>
-                <Button className={classes.element}>Export</Button>
+                <Button className={classes.element} onClick={exportNotes}>Export</Button>
 
                 <Button
                     className={classes.element}
@@ -64,6 +73,14 @@ const Sidebar = ({changeNotesHidden, addNote, deleteNote, returnActiveNote}) => 
                     }}
                 >
                     <DeleteIcon style={{transform: "rotate(90deg)"}}/>
+                </Button>
+                <Button
+                    className={classes.element}
+                    onClick={()=>{
+                        //create settings popup
+                    }}
+                >
+                    <SettingsIcon style={{transform: "rotate(90deg)"}}/>
                 </Button>
             </div>
         </>
