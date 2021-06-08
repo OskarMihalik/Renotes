@@ -1,58 +1,62 @@
 import React, {useState} from 'react';
-import Button from '@material-ui/core/Button';
 import {makeStyles} from '@material-ui/core/styles';
-import DeleteButton from './MyButtons/DeleteButton'
-import DeletePopup from "./DeletePopup";
+import TextField from '@material-ui/core/TextField';
 
 const useStyles = makeStyles((theme) => ({
     root:{
         display: "flex",
         flexDirection: "row",
-        alignContent: "center"
+        alignContent: "flex-start"
     },
-    button: {
-        margin: theme.spacing(1),
+    title: {
+        flexBasis: '65%',
+        padding: '5px 5px',
     },
+    date: {
+        flexBasis: '35%',
+        padding: '5px 5px',
+    },
+    resize: {
+        fontSize: 15,
+    }
 }));
 
-export function Toolbar({addNote, returnActiveNote, deleteNote, onNoteTitleChange}) {
+export function Toolbar({returnActiveNote, onNoteTitleChange}) {
     const classes = useStyles();
-
-    const [isDeletePopupOpen, setDeletePopupOpen] = useState(false)
-
-    const deletePopupOpenClose = ()=>{
-        if(returnActiveNote()){
-            setDeletePopupOpen(!isDeletePopupOpen)
-        }
-    }
-
-    const createNewNote = () => {
-        const note = {
-            name: 'new note',
-            content: ''
-        }
-        addNote(note);
-    }
 
     return (
         <div className={classes.root}>
-            <DeleteButton onClick={deletePopupOpenClose}/>
-            <input type={'text'} placeholder={'title'} onChange={onNoteTitleChange}
-                   value={returnActiveNote() ? returnActiveNote().name : ''}
+            <TextField
+                id="title"
+                className={classes.title}
+                placeholder="title"
+                fullWidth
+                variant="outlined"
+                size={'small'}
+                value={returnActiveNote() ? returnActiveNote().name : ''}
+                onChange={onNoteTitleChange}
+                InputProps={{
+                    classes: {
+                        input: classes.resize
+                    }
+                }}
             />
-            <Button
-                variant="contained"
-                color="primary"
-                size="small"
-                className={classes.button}
-                onClick={() => {
-                    createNewNote()
-                }
-                }
-            >
-                Add new
-            </Button>
-            <DeletePopup isDeletePopupOpen={isDeletePopupOpen} deletePopupOpenClose={deletePopupOpenClose} deleteNote={deleteNote}/>
+            <TextField
+                id="date"
+                className={classes.date}
+                placeholder="date"
+                fullWidth
+                variant="outlined"
+                size={'small'}
+                disabled={true}
+                value={returnActiveNote() ? returnActiveNote().date : ''}
+                // onChange={onNoteTitleChange}
+                InputProps={{
+                    classes: {
+                        input: classes.resize
+                    }
+                }}
+            />
         </div>
     );
 }

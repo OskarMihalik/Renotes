@@ -1,11 +1,8 @@
 .parent{
   height: 100vh;
   display: grid;
-  grid-template-columns: 0.02fr .3fr 1fr;
+  grid-template-columns: 0.02fr 30% 1fr;
   grid-template-rows: .05fr 1fr 1fr;
-  /* align-items: flex-end; */
-  /* flex-flow: row; */
-  /* flex-wrap: wrap; */
   grid-template-areas:
           'sidebar treeview toolbar'
           'sidebar treeview note'
@@ -13,15 +10,12 @@
 }
 
 .parent.hidden{
-  grid-template-columns: 0 1fr;
+  grid-template-columns: 0.02fr 0 1fr;
 }
 
 .treeview{
   background: whitesmoke;
   grid-area: treeview;
-  /*grid-row: 1/4;*/
-  /*grid-column: 2/3;*/
-  /*visibility: hidden;*/
 }
 
 .treeview.hidden {
@@ -34,21 +28,10 @@
 }
 
 .toolbar{
-  /* height: 200px; */
   background: antiquewhite;
   grid-area: toolbar;
-  /*grid-column: 2/4;*/
-  /* grid-row: 1/2; */
-  /* flex-shrink: 2;*/
-  /* flex: 1 1 300px; */
 }
 .note{
-  /* width: 200px;
-  height: 200px; */
   background:antiquewhite;
   grid-area: note;
-  /*grid-row: 2/4;*/
-  /*grid-column: 2/4;*/
-  /* flex: 1 1 300px; */
-  /* grid-column: 1/3; */
 } 
