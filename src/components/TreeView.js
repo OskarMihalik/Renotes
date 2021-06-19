@@ -1,9 +1,11 @@
 import React from 'react';
-import {makeStyles} from '@material-ui/core/styles';
+import {makeStyles, createStyles} from '@material-ui/core/styles';
 import TreeItem from '@material-ui/lab/TreeItem';
 import {TreeView} from "@material-ui/lab";
 
-const useStyles = makeStyles(() => ({
+// import { withTheme } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) =>createStyles(() => ({
     root: {
         height: 10,
         flexGrow: 1,
@@ -13,17 +15,18 @@ const useStyles = makeStyles(() => ({
         overflow: "hidden",
         whiteSpace: 'nowrap',
         textOverflow: "ellipsis",
-        width: '95%'
-    }
-}));
+        width: '95%',
+    },
+})));
 
-export const FileSystemNavigator = ({notes, onNoteClick}) => {
+export const FileSystemNavigator = ({notes, onNoteClick, returnActiveNote}) => {
     const classes = useStyles();
-
     return (
         <TreeView
             className={classes.root}
             multiSelect={false}
+            //can't return null thing of else
+            selected={returnActiveNote() ? returnActiveNote().id : ''}
         >
             {notes.map((note) =>
                 (<div key={note.id} className={classes.treeDiv}>
@@ -31,7 +34,9 @@ export const FileSystemNavigator = ({notes, onNoteClick}) => {
                             nodeId={note.id}
                             size={"small"}
                             label={note.name ? note.name : '...'}
-                            onLabelClick={()=> onNoteClick(note.id)} />
+                            onLabelClick={()=> onNoteClick(note.id)}
+                            color={'secondary'}
+                        />
                     </div>
                 )
             )}

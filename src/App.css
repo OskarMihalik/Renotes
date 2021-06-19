@@ -14,7 +14,7 @@
 }
 
 .treeview{
-  background: whitesmoke;
+  /*background: #fdac1a;*/
   grid-area: treeview;
 }
 
@@ -24,14 +24,14 @@
 
 .sidebar{
   grid-area: sidebar;
-  background: aquamarine;
+  /*background: #6a8d73;*/
 }
 
 .toolbar{
-  background: antiquewhite;
+  background: transparent;
   grid-area: toolbar;
 }
 .note{
-  background:antiquewhite;
+  background: transparent;
   grid-area: note;
 } 
