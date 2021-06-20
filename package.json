@@ -46,6 +46,7 @@
     ]
   },
   "devDependencies": {
+    "@codemirror/view": "^0.18.17",
     "@material-ui/styles": "^4.11.4"
   }
 }

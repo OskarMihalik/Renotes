@@ -5,6 +5,8 @@ import AddIcon from "@material-ui/icons/Add";
 import DeleteIcon from "@material-ui/icons/Delete";
 import SettingsIcon from '@material-ui/icons/Settings';
 import DeletePopup from "./DeletePopup";
+import Brightness4Icon from '@material-ui/icons/Brightness4';
+import Brightness7Icon from '@material-ui/icons/Brightness7';
 
 const useStyles = makeStyles(() => ({
     root: {
@@ -17,13 +19,12 @@ const useStyles = makeStyles(() => ({
         margin: '12px 0px',
         padding: '12px 0px',
         maxWidth: '40px', maxHeight: '30px', minWidth: '40px', minHeight: '30px',
-        fontSize:10
+        fontSize: 10
     }
 }))
 
 
-
-const Sidebar = ({changeNotesHidden, addNote, deleteNote, returnActiveNote, notes}) => {
+const Sidebar = ({changeNotesHidden, addNote, deleteNote, returnActiveNote, notes, changeTheme, prefersDarkMode}) => {
     const classes = useStyles();
 
     const createNewNote = () => {
@@ -36,8 +37,8 @@ const Sidebar = ({changeNotesHidden, addNote, deleteNote, returnActiveNote, note
 
     const [isDeletePopupOpen, setDeletePopupOpen] = useState(false)
 
-    const deletePopupOpenClose = ()=>{
-        if(returnActiveNote()){
+    const deletePopupOpenClose = () => {
+        if (returnActiveNote()) {
             setDeletePopupOpen(!isDeletePopupOpen)
         }
     }
@@ -52,7 +53,8 @@ const Sidebar = ({changeNotesHidden, addNote, deleteNote, returnActiveNote, note
 
     return (
         <>
-            <DeletePopup isDeletePopupOpen={isDeletePopupOpen} deletePopupOpenClose={deletePopupOpenClose} deleteNote={deleteNote}/>
+            <DeletePopup isDeletePopupOpen={isDeletePopupOpen} deletePopupOpenClose={deletePopupOpenClose}
+                         deleteNote={deleteNote}/>
             <div className={classes.root}>
                 <Button onClick={changeNotesHidden} className={classes.element}>Notes</Button>
                 <Button className={classes.element} onClick={exportNotes}>Export</Button>
@@ -68,7 +70,7 @@ const Sidebar = ({changeNotesHidden, addNote, deleteNote, returnActiveNote, note
                 </Button>
                 <Button
                     className={classes.element}
-                    onClick={()=>{
+                    onClick={() => {
                         deletePopupOpenClose()
                     }}
                 >
@@ -76,11 +78,14 @@ const Sidebar = ({changeNotesHidden, addNote, deleteNote, returnActiveNote, note
                 </Button>
                 <Button
                     className={classes.element}
-                    onClick={()=>{
-                        //create settings popup
+                    onClick={() => {
+                        changeTheme()
                     }}
                 >
-                    <SettingsIcon style={{transform: "rotate(90deg)"}}/>
+                    {prefersDarkMode ?
+                        <Brightness7Icon style={{transform: "rotate(90deg)"}}/> :
+                        <Brightness4Icon style={{transform: "rotate(90deg)"}}/>}
+
                 </Button>
             </div>
         </>

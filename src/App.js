@@ -10,6 +10,7 @@ import {ThemeProvider} from '@material-ui/styles';
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Box from '@material-ui/core/Box';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
+import {MuiThemeProvider} from "@material-ui/core/styles";
 
 //template rsc
 
@@ -18,7 +19,6 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 function App() {
     // const prefersDarkMode = useMediaQuery('(prefers-color-scheme: light)');
     const [prefersDarkMode, setPrefersDarkMode] = useState(false)
-    console.log(prefersDarkMode)
     const theme = useMemo(
         () =>
             createMuiTheme({
@@ -28,6 +28,12 @@ function App() {
             }),
         [prefersDarkMode],
     );
+
+    const changeTheme= ()=>{
+        setPrefersDarkMode(!prefersDarkMode)
+        return prefersDarkMode
+    }
+
     const [notes, setNotes] = useState([
         {
             id: '9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d',
@@ -99,29 +105,35 @@ function App() {
     }
 
     return (
-        <ThemeProvider theme={theme}>
+        <MuiThemeProvider theme={theme}>
             <CssBaseline/>
-            <div className={notesHidden ? "parent hidden" : "parent"}>
+            <Box className={notesHidden ? "parent hidden" : "parent"}>
                 <Box  color={'primary'} className={"sidebar"}>
                     <Sidebar changeNotesHidden={changeNotesHidden} addNote={addNote}
                              deleteNote={deleteNote}
-                             returnActiveNote={returnActiveNote} notes={notes}/>
+                             returnActiveNote={returnActiveNote} notes={notes}
+                             changeTheme={changeTheme}
+                             prefersDarkMode={prefersDarkMode}
+                    />
                 </Box>
                 <Box color={'primary'} className={notesHidden ? "treeview hidden" : "treeview"}>
                     <FileSystemNavigator notes={notes} onNoteClick={onNoteClick} noteIndex={activeNoteIndex}
                                          returnActiveNote={returnActiveNote}/>
                 </Box>
-                <div className="toolbar">
+                <Box className="toolbar">
                     <Toolbar addNote={addNote} returnActiveNote={returnActiveNote} deleteNote={deleteNote}
                              onNoteTitleChange={onNoteTitleChange}/>
-                </div>
-                <div className="note">
-                    <Note returnActiveNote={returnActiveNote} onNoteContentChange={onNoteContentChange}/>
+                </Box>
+                <Box className="note">
+                    <Note
+                        returnActiveNote={returnActiveNote}
+                        onNoteContentChange={onNoteContentChange}
+                    />
                     {/*<Button color={'secondary'}>GG</Button>*/}
-                </div>
+                </Box>
 
-            </div>
-        </ThemeProvider>
+            </Box>
+        </MuiThemeProvider>
     );
 }
 
