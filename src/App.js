@@ -19,7 +19,7 @@ import {MuiThemeProvider} from "@material-ui/core/styles";
 function App() {
     // const prefersDarkMode = useMediaQuery('(prefers-color-scheme: light)');
     const [prefersDarkMode, setPrefersDarkMode] = useState(false)
-    const theme = useMemo(
+    const custom_theme = useMemo(
         () =>
             createMuiTheme({
                 palette: {
@@ -105,7 +105,7 @@ function App() {
     }
 
     return (
-        <MuiThemeProvider theme={theme}>
+        <MuiThemeProvider theme={custom_theme}>
             <CssBaseline/>
             <Box className={notesHidden ? "parent hidden" : "parent"}>
                 <Box  color={'primary'} className={"sidebar"}>
@@ -128,6 +128,8 @@ function App() {
                     <Note
                         returnActiveNote={returnActiveNote}
                         onNoteContentChange={onNoteContentChange}
+                        prefersDarkMode={prefersDarkMode}
+                        custom_theme={custom_theme}
                     />
                     {/*<Button color={'secondary'}>GG</Button>*/}
                 </Box>

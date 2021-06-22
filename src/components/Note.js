@@ -1,56 +1,61 @@
-import {useMemo} from 'react';
+import {useEffect, useMemo, useRef} from 'react';
 import SimpleMDE from "react-simplemde-editor";
 import "easymde/dist/easymde.min.css";
 import {makeStyles} from '@material-ui/core/styles';
 // import theme from './editorTheme.scss'
-import { useTheme } from '@material-ui/core/styles';
+// import { useTheme } from '@material-ui/core/styles';
+import {withTheme} from "@material-ui/styles";
 
 
 
-const Note = ({returnActiveNote, onNoteContentChange}) => {
-    const theme = useTheme()
+const Note = ({returnActiveNote, onNoteContentChange, prefersDarkMode, custom_theme}) => {
+    // const theme = useTheme()
+
     const useStyles = makeStyles(() => ({
         root: {
             padding: "5px 5px"
         },
         editorDark: {
             "& .CodeMirror": {
-                color: theme.palette.text.primary,
-                borderColor: theme.palette.background.paper,
+                color: custom_theme.palette.text.primary,
+                borderColor: custom_theme.palette.background.paper,
                 backgroundColor: "inherit"
             },
             "& .cm-s-easymde .CodeMirror-cursor": {
-                borderColor: theme.palette.background.paper
+                borderColor: custom_theme.palette.background.paper
             },
             "& .editor-toolbar > *": {
-                color: theme.palette.text.primary
+                color: custom_theme.palette.text.primary
+                // color: 'red'
             },
             "& .editor-toolbar > .active, .editor-toolbar > button:hover, .editor-preview pre, .cm-s-easymde .cm-comment": {
-                backgroundColor: theme.palette.background.paper
+                backgroundColor: custom_theme.palette.background.paper
             },
             "& .editor-preview": {
-                backgroundColor: theme.palette.background.default
+                backgroundColor: custom_theme.palette.background.default
             }
         }
     }))
     const classes = useStyles()
 
     const autofocusNoSpellcheckerOptions = useMemo(() => {
+        console.log(custom_theme.palette.background.default)
         return {
             autofocus: true,
             spellChecker: false,
-            theme: classes.editorDark
-            //someday add image upload
             // uploadImage: true
         }
-    }, [classes.editorDark]);
+    }, [classes.editorDark, custom_theme]);
 
     return (
         <div className={classes.root}>
-            <SimpleMDE options={autofocusNoSpellcheckerOptions}
-                       value={returnActiveNote() ? returnActiveNote().content : ''}
-                       onChange={onNoteContentChange}
-            />
+            <div className={classes.editorDark}>
+                <SimpleMDE options={autofocusNoSpellcheckerOptions}
+                           value={returnActiveNote() ? returnActiveNote().content : ''}
+                           onChange={onNoteContentChange}
+                />
+            </div>
+
         </div>
     )
 }
