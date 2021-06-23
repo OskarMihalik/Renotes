@@ -15,10 +15,9 @@ import {MuiThemeProvider} from "@material-ui/core/styles";
 //template rsc
 
 
-
 function App() {
-    // const prefersDarkMode = useMediaQuery('(prefers-color-scheme: light)');
-    const [prefersDarkMode, setPrefersDarkMode] = useState(false)
+    const darkMode = useMediaQuery('(prefers-color-scheme: dark)');
+    const [prefersDarkMode, setPrefersDarkMode] = useState(darkMode)
     const custom_theme = useMemo(
         () =>
             createMuiTheme({
@@ -108,7 +107,7 @@ function App() {
         <MuiThemeProvider theme={custom_theme}>
             <CssBaseline/>
             <Box className={notesHidden ? "parent hidden" : "parent"}>
-                <Box  color={'primary'} className={"sidebar"}>
+                <Box borderRight={1}  className={"sidebar"}>
                     <Sidebar changeNotesHidden={changeNotesHidden} addNote={addNote}
                              deleteNote={deleteNote}
                              returnActiveNote={returnActiveNote} notes={notes}
@@ -116,7 +115,7 @@ function App() {
                              prefersDarkMode={prefersDarkMode}
                     />
                 </Box>
-                <Box color={'primary'} className={notesHidden ? "treeview hidden" : "treeview"}>
+                <Box borderRight={1} className={notesHidden ? "treeview hidden" : "treeview"}>
                     <FileSystemNavigator notes={notes} onNoteClick={onNoteClick} noteIndex={activeNoteIndex}
                                          returnActiveNote={returnActiveNote}/>
                 </Box>
@@ -131,7 +130,6 @@ function App() {
                         prefersDarkMode={prefersDarkMode}
                         custom_theme={custom_theme}
                     />
-                    {/*<Button color={'secondary'}>GG</Button>*/}
                 </Box>
 
             </Box>
