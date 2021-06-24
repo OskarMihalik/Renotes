@@ -6,7 +6,6 @@ import Note from './components/Note'
 import {v4 as uuidv4} from 'uuid';
 import Sidebar from "./components/Sidebar";
 import {createMuiTheme} from '@material-ui/core/styles';
-import {ThemeProvider} from '@material-ui/styles';
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Box from '@material-ui/core/Box';
 import useMediaQuery from '@material-ui/core/useMediaQuery';

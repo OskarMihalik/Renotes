@@ -1,9 +1,8 @@
-import React, {useState} from 'react';
+import React, {useState, useRef} from 'react';
 import {makeStyles} from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import AddIcon from "@material-ui/icons/Add";
 import DeleteIcon from "@material-ui/icons/Delete";
-import SettingsIcon from '@material-ui/icons/Settings';
 import DeletePopup from "./DeletePopup";
 import Brightness4Icon from '@material-ui/icons/Brightness4';
 import Brightness7Icon from '@material-ui/icons/Brightness7';
@@ -51,6 +50,35 @@ const Sidebar = ({changeNotesHidden, addNote, deleteNote, returnActiveNote, note
         a.click();
     }
 
+    // const fileInputRef=useRef();
+    const importNotes = (evt) =>{
+        let status = []; // Status output
+        const fileObj = evt.target.files[0]; // We've not allowed multiple files.
+        // See https://developer.mozilla.org/en-US/docs/Web/API/FileReader
+        const reader = new FileReader();
+
+        // Defining the function here gives it access to the fileObj constant.
+        let fileloaded = e => {
+            // e.target.result is the file's content as text
+            // Don't trust the fileContents!
+            // Test any assumptions about its contents!
+            const fileContents = e.target.result;
+            status.push(`File name: "${fileObj.name}". ` +
+                `Length: ${fileContents.length} bytes.`);
+            // Show first 80 characters of the file
+            const first80char = fileContents.substring(0,80);
+            status.push (`First 80 characters of the file:\n${first80char}`)
+            // Show the status messages
+            this.setState ({status: status.join("\n")});
+        }
+
+        // Mainline of the method
+        fileloaded = fileloaded.bind(this);
+        // The fileloaded event handler is triggered when the read completes
+        reader.onload = fileloaded;
+        reader.readAsText(fileObj); // read the file
+    }
+
     return (
         <>
             <DeletePopup isDeletePopupOpen={isDeletePopupOpen} deletePopupOpenClose={deletePopupOpenClose}
@@ -58,7 +86,7 @@ const Sidebar = ({changeNotesHidden, addNote, deleteNote, returnActiveNote, note
             <div className={classes.root}>
                 <Button onClick={changeNotesHidden} className={classes.element}>Notes</Button>
                 <Button className={classes.element} onClick={exportNotes}>Export</Button>
-
+                <Button className={classes.element} onClick={exportNotes}>Import</Button>
                 <Button
                     className={classes.element}
                     onClick={() => {

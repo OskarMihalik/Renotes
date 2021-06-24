@@ -4,8 +4,7 @@ import TreeItem from '@material-ui/lab/TreeItem';
 import {TreeView} from "@material-ui/lab";
 
 // import { withTheme } from '@material-ui/core/styles';
-
-const useStyles = makeStyles((theme) =>createStyles(() => ({
+const useStyles = makeStyles(() => ({
     root: {
         height: 10,
         flexGrow: 1,
@@ -15,9 +14,9 @@ const useStyles = makeStyles((theme) =>createStyles(() => ({
         overflow: "hidden",
         whiteSpace: 'nowrap',
         textOverflow: "ellipsis",
-        width: '95%',
+        width: '98%',
     },
-})));
+}))
 
 export const FileSystemNavigator = ({notes, onNoteClick, returnActiveNote}) => {
     const classes = useStyles();
@@ -25,7 +24,6 @@ export const FileSystemNavigator = ({notes, onNoteClick, returnActiveNote}) => {
         <TreeView
             className={classes.root}
             multiSelect={false}
-            //can't return null thing of else
             selected={returnActiveNote() ? returnActiveNote().id : ''}
         >
             {notes.map((note) =>

@@ -1,10 +1,8 @@
-import {useEffect, useMemo, useRef} from 'react';
+import {useMemo} from 'react';
 import SimpleMDE from "react-simplemde-editor";
 import "easymde/dist/easymde.min.css";
 import {makeStyles} from '@material-ui/core/styles';
-// import theme from './editorTheme.scss'
 import { useTheme } from '@material-ui/core/styles';
-// import {withTheme} from "@material-ui/styles";
 
 const useStyles = makeStyles((custom_theme) => ({
     root: {
@@ -43,7 +41,8 @@ const Note = ({returnActiveNote, onNoteContentChange}) => {
         return {
             autofocus: true,
             spellChecker: false,
-            // uploadImage: true
+            hideIcons: ['side-by-side', 'fullscreen'],
+            // TODO: uploadImage: true
         }
     }, []);
 

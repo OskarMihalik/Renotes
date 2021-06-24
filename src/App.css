@@ -16,6 +16,7 @@
 .treeview{
   /*background: #fdac1a;*/
   grid-area: treeview;
+  overflow: scroll;
 }
 
 .treeview.hidden {
