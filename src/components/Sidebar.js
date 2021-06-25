@@ -6,6 +6,9 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import DeletePopup from "./DeletePopup";
 import Brightness4Icon from '@material-ui/icons/Brightness4';
 import Brightness7Icon from '@material-ui/icons/Brightness7';
+import {useFilePicker} from 'use-file-picker';
+import { FilePicker } from 'react-file-picker'
+import {logDOM} from "@testing-library/react";
 
 const useStyles = makeStyles(() => ({
     root: {
@@ -46,38 +49,28 @@ const Sidebar = ({changeNotesHidden, addNote, deleteNote, returnActiveNote, note
         let a = document.createElement('a')
         let file = new Blob([JSON.stringify(notes)], {type: 'text/plain'})
         a.href = URL.createObjectURL(file);
-        a.download = 'notes';
+        a.download = 'notes.txt';
         a.click();
     }
 
     // const fileInputRef=useRef();
-    const importNotes = (evt) =>{
-        let status = []; // Status output
-        const fileObj = evt.target.files[0]; // We've not allowed multiple files.
-        // See https://developer.mozilla.org/en-US/docs/Web/API/FileReader
-        const reader = new FileReader();
-
-        // Defining the function here gives it access to the fileObj constant.
-        let fileloaded = e => {
-            // e.target.result is the file's content as text
-            // Don't trust the fileContents!
-            // Test any assumptions about its contents!
-            const fileContents = e.target.result;
-            status.push(`File name: "${fileObj.name}". ` +
-                `Length: ${fileContents.length} bytes.`);
-            // Show first 80 characters of the file
-            const first80char = fileContents.substring(0,80);
-            status.push (`First 80 characters of the file:\n${first80char}`)
-            // Show the status messages
-            this.setState ({status: status.join("\n")});
+    const [openFileSelector, {filesContent, loading}] = useFilePicker({
+        accept: '.txt',
+        multiple: false,
+    });
+    const importNotes = (fileObject)=>{
+        const read = new FileReader(fileObject)
+        read.readAsBinaryString(fileObject);
+        read.onloadend = function(){
+            console.log(read.result);
         }
-
-        // Mainline of the method
-        fileloaded = fileloaded.bind(this);
-        // The fileloaded event handler is triggered when the read completes
-        reader.onload = fileloaded;
-        reader.readAsText(fileObj); // read the file
+        // openFileSelector()
+        // if (!loading){
+        //     let importedNotes = JSON.stringify(filesContent[0])
+        //     console.log(importedNotes)
+        // }
     }
+
 
     return (
         <>
@@ -86,7 +79,15 @@ const Sidebar = ({changeNotesHidden, addNote, deleteNote, returnActiveNote, note
             <div className={classes.root}>
                 <Button onClick={changeNotesHidden} className={classes.element}>Notes</Button>
                 <Button className={classes.element} onClick={exportNotes}>Export</Button>
-                <Button className={classes.element} onClick={exportNotes}>Import</Button>
+                <FilePicker
+                    extensions={['txt']}
+                    onChange={(fileObject) => {
+                        importNotes(fileObject)
+                    }}
+                >
+                    <Button className={classes.element}>Import</Button>
+                </FilePicker>
+
                 <Button
                     className={classes.element}
                     onClick={() => {
