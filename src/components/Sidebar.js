@@ -6,9 +6,6 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import DeletePopup from "./DeletePopup";
 import Brightness4Icon from '@material-ui/icons/Brightness4';
 import Brightness7Icon from '@material-ui/icons/Brightness7';
-import {useFilePicker} from 'use-file-picker';
-import { FilePicker } from 'react-file-picker'
-import {logDOM} from "@testing-library/react";
 
 const useStyles = makeStyles(() => ({
     root: {
@@ -26,7 +23,7 @@ const useStyles = makeStyles(() => ({
 }))
 
 
-const Sidebar = ({changeNotesHidden, addNote, deleteNote, returnActiveNote, notes, changeTheme, prefersDarkMode}) => {
+const Sidebar = ({changeNotesHidden, addNote, deleteNote, returnActiveNote, notes, changeTheme, prefersDarkMode, setNotes}) => {
     const classes = useStyles();
 
     const createNewNote = () => {
@@ -53,22 +50,14 @@ const Sidebar = ({changeNotesHidden, addNote, deleteNote, returnActiveNote, note
         a.click();
     }
 
-    // const fileInputRef=useRef();
-    const [openFileSelector, {filesContent, loading}] = useFilePicker({
-        accept: '.txt',
-        multiple: false,
-    });
-    const importNotes = (fileObject)=>{
-        const read = new FileReader(fileObject)
-        read.readAsBinaryString(fileObject);
-        read.onloadend = function(){
-            console.log(read.result);
+    const fileInputRef=useRef();
+
+    const importNotes = (evt) => {
+        const read = new FileReader()
+        read.readAsBinaryString(evt.target.files[0]);
+        read.onloadend = function () {
+            setNotes(JSON.parse(read.result))
         }
-        // openFileSelector()
-        // if (!loading){
-        //     let importedNotes = JSON.stringify(filesContent[0])
-        //     console.log(importedNotes)
-        // }
     }
 
 
@@ -79,14 +68,12 @@ const Sidebar = ({changeNotesHidden, addNote, deleteNote, returnActiveNote, note
             <div className={classes.root}>
                 <Button onClick={changeNotesHidden} className={classes.element}>Notes</Button>
                 <Button className={classes.element} onClick={exportNotes}>Export</Button>
-                <FilePicker
-                    extensions={['txt']}
-                    onChange={(fileObject) => {
-                        importNotes(fileObject)
-                    }}
-                >
-                    <Button className={classes.element}>Import</Button>
-                </FilePicker>
+
+                <Button className={classes.element} onClick={()=>fileInputRef.current.click()}>
+                    Import
+
+                </Button>
+                <input ref={fileInputRef} type={'file'} accept={'.txt'} hidden style={{display:'none'}} onChange={importNotes}/>
 
                 <Button
                     className={classes.element}
@@ -120,6 +107,6 @@ const Sidebar = ({changeNotesHidden, addNote, deleteNote, returnActiveNote, note
         </>
 
     );
-};
+}
 
 export default Sidebar;

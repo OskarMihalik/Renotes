@@ -112,6 +112,7 @@ function App() {
                              returnActiveNote={returnActiveNote} notes={notes}
                              changeTheme={changeTheme}
                              prefersDarkMode={prefersDarkMode}
+                             setNotes={setNotes}
                     />
                 </Box>
                 <Box borderRight={1} className={notesHidden ? "treeview hidden" : "treeview"}>
