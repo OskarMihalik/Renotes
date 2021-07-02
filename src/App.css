@@ -1,5 +1,6 @@
 .parent{
   height: 100vh;
+  position: relative;
   display: grid;
   grid-template-columns: 0.02fr 30% 1fr;
   grid-template-rows: .05fr 1fr 1fr;
@@ -16,7 +17,7 @@
 .treeview{
   /*background: #fdac1a;*/
   grid-area: treeview;
-  overflow: scroll;
+  overflow-y: scroll;
 }
 
 .treeview.hidden {

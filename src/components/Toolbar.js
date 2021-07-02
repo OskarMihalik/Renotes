@@ -5,7 +5,7 @@ const useStyles = makeStyles((theme) => ({
     root:{
         display: "flex",
         flexDirection: "row",
-        alignContent: "flex-start"
+        alignContent: "flex-start",
     },
     title: {
         flexBasis: '65%',

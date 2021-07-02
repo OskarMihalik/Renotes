@@ -13,7 +13,7 @@ const useStyles = makeStyles((custom_theme) => ({
             color: custom_theme.palette.text.primary,
             borderColor: custom_theme.palette.text.secondary,
             backgroundColor: "inherit",
-            height: "92vh"
+            height: "80vh",
         },
         "& .cm-s-easymde .CodeMirror-cursor": {
             borderColor: custom_theme.palette.text.primary
