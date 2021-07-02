@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/Renotes/static/css/main.022dc0e8.chunk.css",
+    "main.js": "/Renotes/static/js/main.40258250.chunk.js",
+    "main.js.map": "/Renotes/static/js/main.40258250.chunk.js.map",
+    "runtime-main.js": "/Renotes/static/js/runtime-main.0c7bdd71.js",
+    "runtime-main.js.map": "/Renotes/static/js/runtime-main.0c7bdd71.js.map",
+    "static/css/2.b412cd4e.chunk.css": "/Renotes/static/css/2.b412cd4e.chunk.css",
+    "static/js/2.7468848a.chunk.js": "/Renotes/static/js/2.7468848a.chunk.js",
+    "static/js/2.7468848a.chunk.js.map": "/Renotes/static/js/2.7468848a.chunk.js.map",
+    "static/js/3.904de4aa.chunk.js": "/Renotes/static/js/3.904de4aa.chunk.js",
+    "static/js/3.904de4aa.chunk.js.map": "/Renotes/static/js/3.904de4aa.chunk.js.map",
+    "index.html": "/Renotes/index.html",
+    "static/css/2.b412cd4e.chunk.css.map": "/Renotes/static/css/2.b412cd4e.chunk.css.map",
+    "static/css/main.022dc0e8.chunk.css.map": "/Renotes/static/css/main.022dc0e8.chunk.css.map",
+    "static/js/2.7468848a.chunk.js.LICENSE.txt": "/Renotes/static/js/2.7468848a.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.0c7bdd71.js",
+    "static/css/2.b412cd4e.chunk.css",
+    "static/js/2.7468848a.chunk.js",
+    "static/css/main.022dc0e8.chunk.css",
+    "static/js/main.40258250.chunk.js"
+  ]
+}
