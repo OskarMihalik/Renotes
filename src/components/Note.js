@@ -6,13 +6,14 @@ import { useTheme } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((custom_theme) => ({
     root: {
-        padding: "5px 5px"
+        padding: "5px 5px",
     },
     editorDark: {
         "& .CodeMirror": {
             color: custom_theme.palette.text.primary,
             borderColor: custom_theme.palette.text.secondary,
-            backgroundColor: "inherit"
+            backgroundColor: "inherit",
+            height: "92vh"
         },
         "& .cm-s-easymde .CodeMirror-cursor": {
             borderColor: custom_theme.palette.text.primary
@@ -28,7 +29,7 @@ const useStyles = makeStyles((custom_theme) => ({
         },
         "& .editor-preview": {
             backgroundColor: custom_theme.palette.background.default
-        }
+        },
     }
 }))
 
