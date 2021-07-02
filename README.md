@@ -2,6 +2,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## What is Renotes?
 
+- [Demo](https://oskarmihalik.github.io/Renotes/)
 - Renotes is a web note-taking app where you can:
     - Create and edit notes with [EasyMDE - Markdown Editor](https://github.com/Ionaru/easy-markdown-editor)
     - export and import notes as JSON data

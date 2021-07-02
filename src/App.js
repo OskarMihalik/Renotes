@@ -10,6 +10,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import Box from '@material-ui/core/Box';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import {MuiThemeProvider} from "@material-ui/core/styles";
+import { Helmet } from 'react-helmet';
 
 //template rsc
 
@@ -37,7 +38,7 @@ function App() {
             id: '9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d',
             name: "first note",
             date: 'Tue Jun 08 2021 15:15:42 GMT+0200 (Central European Summer Time)',
-            content: "gg boiz"
+            content: ""
         }
     ])
 
@@ -103,37 +104,43 @@ function App() {
     }
 
     return (
-        <MuiThemeProvider theme={custom_theme}>
-            <CssBaseline/>
-            <Box className={notesHidden ? "parent hidden" : "parent"}>
-                <Box borderRight={1}  className={"sidebar"}>
-                    <Sidebar changeNotesHidden={changeNotesHidden} addNote={addNote}
-                             deleteNote={deleteNote}
-                             returnActiveNote={returnActiveNote} notes={notes}
-                             changeTheme={changeTheme}
-                             prefersDarkMode={prefersDarkMode}
-                             setNotes={setNotes}
-                    />
-                </Box>
-                <Box borderRight={1} className={notesHidden ? "treeview hidden" : "treeview"}>
-                    <FileSystemNavigator notes={notes} onNoteClick={onNoteClick} noteIndex={activeNoteIndex}
-                                         returnActiveNote={returnActiveNote}/>
-                </Box>
-                <Box className="toolbar">
-                    <Toolbar addNote={addNote} returnActiveNote={returnActiveNote} deleteNote={deleteNote}
-                             onNoteTitleChange={onNoteTitleChange}/>
-                </Box>
-                <Box className="note">
-                    <Note
-                        returnActiveNote={returnActiveNote}
-                        onNoteContentChange={onNoteContentChange}
-                        prefersDarkMode={prefersDarkMode}
-                        custom_theme={custom_theme}
-                    />
-                </Box>
+        <>
+            <Helmet>
+                <title>Renotes</title>
+            </Helmet>
+            <MuiThemeProvider theme={custom_theme}>
+                <CssBaseline/>
+                <Box className={notesHidden ? "parent hidden" : "parent"}>
+                    <Box borderRight={1}  className={"sidebar"}>
+                        <Sidebar changeNotesHidden={changeNotesHidden} addNote={addNote}
+                                 deleteNote={deleteNote}
+                                 returnActiveNote={returnActiveNote} notes={notes}
+                                 changeTheme={changeTheme}
+                                 prefersDarkMode={prefersDarkMode}
+                                 setNotes={setNotes}
+                        />
+                    </Box>
+                    <Box borderRight={1} className={notesHidden ? "treeview hidden" : "treeview"}>
+                        <FileSystemNavigator notes={notes} onNoteClick={onNoteClick} noteIndex={activeNoteIndex}
+                                             returnActiveNote={returnActiveNote}/>
+                    </Box>
+                    <Box className="toolbar">
+                        <Toolbar addNote={addNote} returnActiveNote={returnActiveNote} deleteNote={deleteNote}
+                                 onNoteTitleChange={onNoteTitleChange}/>
+                    </Box>
+                    <Box className="note">
+                        <Note
+                            returnActiveNote={returnActiveNote}
+                            onNoteContentChange={onNoteContentChange}
+                            prefersDarkMode={prefersDarkMode}
+                            custom_theme={custom_theme}
+                        />
+                    </Box>
 
-            </Box>
-        </MuiThemeProvider>
+                </Box>
+            </MuiThemeProvider>
+        </>
+
     );
 }
 
