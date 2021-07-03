@@ -56,7 +56,12 @@ const Sidebar = ({changeNotesHidden, addNote, deleteNote, returnActiveNote, note
         const read = new FileReader()
         read.readAsBinaryString(evt.target.files[0]);
         read.onloadend = function () {
-            setNotes(JSON.parse(read.result))
+            try {
+                setNotes(JSON.parse(read.result))
+            }catch (e) {
+                alert('something went wrong while importing data')
+            }
+
         }
     }
 

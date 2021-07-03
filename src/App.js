@@ -10,7 +10,6 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import Box from '@material-ui/core/Box';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import {MuiThemeProvider} from "@material-ui/core/styles";
-import { Helmet } from 'react-helmet';
 
 //template rsc
 
@@ -28,19 +27,13 @@ function App() {
         [prefersDarkMode],
     );
 
-    const changeTheme= ()=>{
+    const changeTheme = () => {
         setPrefersDarkMode(!prefersDarkMode)
         return prefersDarkMode
     }
 
-    const [notes, setNotes] = useState([
-        {
-            id: '9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d',
-            name: "first note",
-            date: 'Tue Jun 08 2021 15:15:42 GMT+0200 (Central European Summer Time)',
-            content: ""
-        }
-    ])
+    const {welcomeNote} = require('./welcomeContent')
+    const [notes, setNotes] = useState([welcomeNote])
 
     useEffect(() => {
         const json = localStorage.getItem("notes");
@@ -105,13 +98,10 @@ function App() {
 
     return (
         <>
-            <Helmet>
-                <title>Renotes</title>
-            </Helmet>
             <MuiThemeProvider theme={custom_theme}>
                 <CssBaseline/>
                 <Box className={notesHidden ? "parent hidden" : "parent"}>
-                    <Box borderRight={1}  className={"sidebar"}>
+                    <Box borderRight={1} className={"sidebar"}>
                         <Sidebar changeNotesHidden={changeNotesHidden} addNote={addNote}
                                  deleteNote={deleteNote}
                                  returnActiveNote={returnActiveNote} notes={notes}
