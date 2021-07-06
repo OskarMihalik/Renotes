@@ -60,7 +60,7 @@ function App() {
         setActiveNoteIndex(notes.findIndex((note) => note.id === id))
     }
 
-    //argument has name, content without id
+    //argument has name and content without id and date
     const addNote = (note) => {
         const id = uuidv4()
         const date = Date().toLocaleString()
@@ -69,7 +69,6 @@ function App() {
     }
 
     const deleteNote = () => {
-        //move deleting notes here
         if (notes.length > 0) {
             let copy = [...notes]
             copy.splice(activeNoteIndex, 1)
@@ -96,6 +95,10 @@ function App() {
         return activeNoteIndex >= 0 ? notes[activeNoteIndex] : null
     }
 
+    const filterNotes = (filterStr) => {
+        return notes.filter((note) => note.name.toLowerCase().includes(filterStr.toLowerCase()))
+    }
+
     return (
         <>
             <MuiThemeProvider theme={custom_theme}>
@@ -112,7 +115,10 @@ function App() {
                     </Box>
                     <Box borderRight={1} className={notesHidden ? "treeview hidden" : "treeview"}>
                         <FileSystemNavigator notes={notes} onNoteClick={onNoteClick} noteIndex={activeNoteIndex}
-                                             returnActiveNote={returnActiveNote}/>
+                                             returnActiveNote={returnActiveNote}
+                                             filterNotes={filterNotes}
+
+                        />
                     </Box>
                     <Box className="toolbar">
                         <Toolbar addNote={addNote} returnActiveNote={returnActiveNote} deleteNote={deleteNote}
